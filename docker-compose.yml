@@ -1,0 +1,13 @@
+services:
+  xray:
+    build: .
+    image: socksproxy-xray:latest
+    container_name: newproxy
+    restart: always
+    environment:
+      SUBSCRIPTION_URL: ${SUBSCRIPTION_URL:?Задайте SUBSCRIPTION_URL в файле .env}
+      SUBSCRIPTION_INTERVAL: ${SUBSCRIPTION_INTERVAL:-3600}
+    ports:
+      - "${SOCKS_PORT:-1080}:1080"
+    dns:
+      - 8.8.8.8
